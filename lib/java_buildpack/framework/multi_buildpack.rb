@@ -279,10 +279,11 @@ module JavaBuildpack
         deps = Pathname.glob('/tmp/*/deps').map{|d| d.children}.flatten
         return [] unless deps
 
-        deps
+        ret = deps
           .select { |dep_directory| config_file(dep_directory).exist? }
           .sort_by(&:basename)
-
+        @logger.info("*** DEPS DIRECTORIES *** #{ret}")
+        ret
       end
 
       def log_configuration(config)
