@@ -32,7 +32,7 @@ module JavaBuildpack
       def logger
         puts("PRE LOGGER")
         JavaBuildpack::Logging::LoggerFactory.instance.get_logger VersionedDependencyComponent
-        puts("LOGGER: #{@logger}")
+        puts("LOGGER: ")
       end
       # Creates an instance.  In addition to the functionality inherited from +BaseComponent+, +@version+ and +@uri+
       # instance variables are exposed.
@@ -83,7 +83,7 @@ module JavaBuildpack
       # @param [String] name an optional name for the download and expansion.  Defaults to +@component_name+.
       # @return [Void]
       def download_tar(strip_top_level = true, target_directory = @droplet.sandbox, name = @component_name)
-        logger.warn { "*****GEODE DOWNLOAD TAR"}
+        logger.warn { "GEODE DOWNLOAD TAR"}
         super(@version, @uri, strip_top_level, target_directory, name)
         logger.warn { Dir[target_directory].join("\n")}
       end
