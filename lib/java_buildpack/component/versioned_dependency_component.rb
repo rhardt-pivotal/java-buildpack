@@ -28,6 +28,12 @@ module JavaBuildpack
     # inherited from +BaseComponent+ this class also ensures that managed dependencies are handled in a uniform manner.
     class VersionedDependencyComponent < BaseComponent
 
+
+      def logger
+        puts("PRE LOGGER")
+        @logger  = JavaBuildpack::Logging::LoggerFactory.instance.get_logger VersionedDependencyComponent
+        puts("LOGGER: #{@logger}")
+      end
       # Creates an instance.  In addition to the functionality inherited from +BaseComponent+, +@version+ and +@uri+
       # instance variables are exposed.
       #
@@ -35,10 +41,6 @@ module JavaBuildpack
       # @param [Block, nil] version_validator an optional version validation block
       def initialize(context, &version_validator)
         super(context)
-
-        puts("PRE LOGGER")
-        @logger  = JavaBuildpack::Logging::LoggerFactory.instance.get_logger VersionedDependencyComponent
-        puts("LOGGER: #{@logger}")
 
         if supports?
           @version, @uri = JavaBuildpack::Repository::ConfiguredItem.find_item(@component_name, @configuration,
@@ -81,9 +83,9 @@ module JavaBuildpack
       # @param [String] name an optional name for the download and expansion.  Defaults to +@component_name+.
       # @return [Void]
       def download_tar(strip_top_level = true, target_directory = @droplet.sandbox, name = @component_name)
-        @logger.warn { "*****GEODE DOWNLOAD TAR"}
+        logger.warn { "*****GEODE DOWNLOAD TAR"}
         super(@version, @uri, strip_top_level, target_directory, name)
-        @logger.warn { Dir[target_directory].join("\n")}
+        logger.warn { Dir[target_directory].join("\n")}
       end
 
       # Downloads a given ZIP file and expands it.
