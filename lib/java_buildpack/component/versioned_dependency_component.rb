@@ -19,6 +19,7 @@ require 'java_buildpack/component/base_component'
 require 'java_buildpack/repository/configured_item'
 require 'java_buildpack/util/dash_case'
 require 'tmpdir'
+require 'java_buildpack/logging/logger_factory'
 
 module JavaBuildpack
   module Component
@@ -34,6 +35,8 @@ module JavaBuildpack
       # @param [Block, nil] version_validator an optional version validation block
       def initialize(context, &version_validator)
         super(context)
+
+        @logger  = JavaBuildpack::Logging::LoggerFactory.instance.get_logger VersionedDependencyComponent
 
         if supports?
           @version, @uri = JavaBuildpack::Repository::ConfiguredItem.find_item(@component_name, @configuration,
@@ -76,9 +79,9 @@ module JavaBuildpack
       # @param [String] name an optional name for the download and expansion.  Defaults to +@component_name+.
       # @return [Void]
       def download_tar(strip_top_level = true, target_directory = @droplet.sandbox, name = @component_name)
-        logger.info("***** GEODE download_tar")
+        @logger.info { "*****GEODE DOWNLOAD TAR"}
         super(@version, @uri, strip_top_level, target_directory, name)
-        Dir[target_directory+"/*"].join("\n")
+        @logger.info { Dir[target_directory].join("\n")}
       end
 
       # Downloads a given ZIP file and expands it.
