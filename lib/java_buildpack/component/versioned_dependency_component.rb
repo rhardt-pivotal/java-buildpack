@@ -27,8 +27,6 @@ module JavaBuildpack
     # inherited from +BaseComponent+ this class also ensures that managed dependencies are handled in a uniform manner.
     class VersionedDependencyComponent < BaseComponent
 
-      @logger = JavaBuildpack::Logging::LoggerFactory.instance.get_logger RepositoryIndex
-
       # Creates an instance.  In addition to the functionality inherited from +BaseComponent+, +@version+ and +@uri+
       # instance variables are exposed.
       #
