@@ -31,7 +31,7 @@ module JavaBuildpack
 
       def logger
         puts("PRE LOGGER")
-        @logger  = JavaBuildpack::Logging::LoggerFactory.instance.get_logger VersionedDependencyComponent
+        JavaBuildpack::Logging::LoggerFactory.instance.get_logger VersionedDependencyComponent
         puts("LOGGER: #{@logger}")
       end
       # Creates an instance.  In addition to the functionality inherited from +BaseComponent+, +@version+ and +@uri+
