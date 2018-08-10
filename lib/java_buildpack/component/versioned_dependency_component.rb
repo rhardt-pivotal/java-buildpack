@@ -83,7 +83,7 @@ module JavaBuildpack
       def download_tar(strip_top_level = true, target_directory = @droplet.sandbox, name = @component_name)
         logger.warn { "DOWNLOAD TAR"}
         super(@version, @uri, strip_top_level, target_directory, name)
-        logger.warn { Dir[target_directory+"/*"].join("\n")}
+        logger.warn { Dir.entries(target_directory).join(",") }
       end
 
       # Downloads a given ZIP file and expands it.
