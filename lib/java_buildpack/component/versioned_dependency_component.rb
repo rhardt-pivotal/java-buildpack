@@ -36,7 +36,9 @@ module JavaBuildpack
       def initialize(context, &version_validator)
         super(context)
 
+        puts("PRE LOGGER")
         @logger  = JavaBuildpack::Logging::LoggerFactory.instance.get_logger VersionedDependencyComponent
+        puts("LOGGER: #{@logger}")
 
         if supports?
           @version, @uri = JavaBuildpack::Repository::ConfiguredItem.find_item(@component_name, @configuration,
