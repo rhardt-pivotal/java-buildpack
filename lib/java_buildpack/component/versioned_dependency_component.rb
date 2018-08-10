@@ -81,9 +81,9 @@ module JavaBuildpack
       # @param [String] name an optional name for the download and expansion.  Defaults to +@component_name+.
       # @return [Void]
       def download_tar(strip_top_level = true, target_directory = @droplet.sandbox, name = @component_name)
-        logger.warn { "GEODE DOWNLOAD TAR"}
+        logger.warn { "DOWNLOAD TAR"}
         super(@version, @uri, strip_top_level, target_directory, name)
-        logger.warn { Dir[target_directory].join("\n")}
+        logger.warn { Dir[target_directory+"/*"].join("\n")}
       end
 
       # Downloads a given ZIP file and expands it.
