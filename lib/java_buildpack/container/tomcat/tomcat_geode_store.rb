@@ -25,6 +25,8 @@ module JavaBuildpack
     class TomcatGeodeStore < JavaBuildpack::Component::VersionedDependencyComponent
       include JavaBuildpack::Container
 
+
+
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         return unless supports?
