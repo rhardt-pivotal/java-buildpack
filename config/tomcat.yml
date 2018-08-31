@@ -42,3 +42,4 @@ redis_store:
 geode_store:
   version: 0.+
   repository_root: https://repo.spring.io/ext-release-local/geode-store
+  global_pdx: true

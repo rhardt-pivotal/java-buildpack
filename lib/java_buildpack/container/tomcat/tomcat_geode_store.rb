@@ -25,7 +25,15 @@ module JavaBuildpack
     class TomcatGeodeStore < JavaBuildpack::Component::VersionedDependencyComponent
       include JavaBuildpack::Container
 
-
+      # Creates an instance
+      #
+      # @param [Hash] context a collection of utilities used the component
+      def initialize(context)
+        @logger = JavaBuildpack::Logging::LoggerFactory.instance.get_logger TomcatGeodeStore
+        super(context)
+        @logger.warn 'CUSTOM GEODE INIT'
+        @logger.warn @configuration
+      end
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
@@ -91,6 +99,7 @@ module JavaBuildpack
                                             'xsi:schemaLocation' => SCHEMA_LOCATION,
                                             'version' => '1.0'
 
+        add_pdx client_cache
         add_pool client_cache
         add_function_service client_cache
       end
@@ -135,6 +144,18 @@ module JavaBuildpack
                                         'name' => 'sessions',
                                         'subscription-enabled' => 'true'
         add_locators pool
+      end
+
+      def add_pdx(client_cache)
+        @logger.warn "*** ADD_PDX"
+        pdx = client_cache.add_element 'pdx'
+        serializer = pdx.add_element 'pdx-serializer'
+        classname = serializer.add_element 'class-name'
+        classname.add_text 'org.apache.geode.pdx.ReflectionBasedAutoSerializer'
+        classesparm = serializer.add_element 'parameter',
+                                             'name' => 'classes'
+        str = classesparm.add_element 'string'
+        str.add_text '.*'
       end
 
       def cache_client_xml
