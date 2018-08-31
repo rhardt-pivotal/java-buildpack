@@ -148,7 +148,8 @@ module JavaBuildpack
 
       def add_pdx(client_cache)
         @logger.warn "*** ADD_PDX"
-        pdx = client_cache.add_element 'pdx'
+        pdx = client_cache.add_element 'pdx',
+                                       'read-serialized' => 'true'
         serializer = pdx.add_element 'pdx-serializer'
         classname = serializer.add_element 'class-name'
         classname.add_text 'org.apache.geode.pdx.ReflectionBasedAutoSerializer'
