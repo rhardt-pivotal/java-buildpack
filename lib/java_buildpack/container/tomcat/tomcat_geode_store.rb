@@ -99,8 +99,8 @@ module JavaBuildpack
                                             'xsi:schemaLocation' => SCHEMA_LOCATION,
                                             'version' => '1.0'
 
-        add_pdx client_cache
         add_pool client_cache
+        add_pdx client_cache
         add_function_service client_cache
       end
 
