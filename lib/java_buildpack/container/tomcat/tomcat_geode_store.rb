@@ -151,7 +151,7 @@ module JavaBuildpack
         pdx = client_cache.add_element 'pdx'
         serializer = pdx.add_element 'pdx-serializer'
         classname = serializer.add_element 'class-name'
-        classname.add_text 'org.apache.geode.pdx.ReflectionBasedAutoSerializer'
+        classname.add_text  @configuration['pdx_serializer_class'] # 'org.apache.geode.pdx.ReflectionBasedAutoSerializer'
         classesparm = serializer.add_element 'parameter',
                                              'name' => 'classes'
         str = classesparm.add_element 'string'
